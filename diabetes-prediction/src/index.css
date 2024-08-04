@@ -1,13 +1,152 @@
-body {
+html, body, #root {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  padding: 0;
+  height: 100%;
+  font-family: Arial, sans-serif;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+.app-container {
+  text-align: center;
+  background-color: #1E1E1E;
+  color: white;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start; /* Align items to the top */
+  padding-top: 2em; /* Add padding to the top to create space */
+}
+
+h1 {
+  font-size: 3.5em; /* Increase the font size of the title */
+  margin-bottom: 1em; /* Add some space below the title */
+}
+
+.content-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start; /* Align items to the start (left) */
+  width: 80%; /* Ensure the content container takes up most of the screen width */
+  margin-top: 2em; /* Add margin-top to push content down slightly */
+}
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+  width: 40%; /* Make form container take up 40% of the width */
+  margin-right: 5%; /* Add some space between the form and the image */
+  text-align: left; /* Align text to the left */
+  align-items: center; /* Center items within the form-container */
+}
+
+form {
+  width: 100%; /* Ensure form takes full width of the form-container */
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center items within the form */
+}
+
+form div {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1.5em;
+  width: 100%; /* Ensure form divs take full width of the form */
+}
+
+form label {
+  flex: 1; /* Make label take up 1 part of the available space */
+  margin-right: 1em;
+  font-size: large;
+}
+
+form input {
+  flex: 2; /* Make input take up 2 parts of the available space */
+  padding: 0.5em;
+  width: 100%;
+  min-width: 250px; /* Set a minimum width for input boxes */
+  max-width: 400px; /* Set a maximum width for input boxes */
+  background-color: #3D3D3D;
+  color: white;
+  border: 1px solid #555;
+  border-radius: 4px;
+  font-size: medium;
+}
+
+form input::placeholder {
+  color: #aaa;
+}
+
+button {
+  margin-top: 10px;
+  padding: 1em 1em;
+  background-color: #229DF8;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 15px;
+  font-size: medium;
+  align-self: center; /* Center the button horizontally */
+  margin-top: 1em; /* Add some space above the button */
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+.image-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%; /* Ensure the image container takes the full width */
+  height: auto; /* Adjust height as needed */
+  overflow: hidden; /* Hide overflow to prevent image from exceeding container */
+}
+
+.image-container img {
+  max-width: none; /* Ensure no maximum width */
+  width: 90%; /* Increase the width to 200% */
+  height: auto; /* Maintain aspect ratio */
+  transform: scale(1.2); /* Scale the image by 1.2 */
+}
+
+/* Media Queries for Responsiveness */
+@media (max-width: 768px) {
+  .content-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .form-container, .image-container {
+    width: 80%;
+    margin-right: 0;
+    margin-bottom: 2em;
+  }
+
+  h1 {
+    font-size: 2.5em;
+  }
+}
+
+@media (max-width: 480px) {
+  form label {
+    font-size: medium;
+  }
+
+  form input {
+    font-size: small;
+  }
+
+  button {
+    font-size: small;
+    padding: 0.5em 1em;
+  }
+
+  h1 {
+    font-size: 2em;
+  }
+
+  .image-container img {
+    width: 75%; /* Adjust image size for smaller screens */
+    transform: scale(1); /* Remove scaling for very small screens */
+  }
 }

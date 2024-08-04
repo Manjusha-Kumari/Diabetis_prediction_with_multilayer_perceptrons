@@ -4,6 +4,8 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from sklearn.metrics import confusion_matrix, roc_curve
 import numpy as np
+import joblib
+
 
 # Load and preprocess data
 file_path = "diabetes.csv"
@@ -37,3 +39,5 @@ plt.plot([0, 1], [0, 1], '--', color='black')
 plt.xlabel('False Positive Rate')
 plt.ylabel('True Positive Rate')
 plt.show()
+# Assuming 'model' is your trained model
+joblib.dump(model, 'diabetes-prediction-api/diabetes_model.pkl')
