@@ -1,11 +1,6 @@
-pandas
+Flask
+Flask-Cors
 numpy
+pandas
 scikit-learn
-keras
-tensorflow
-matplotlib
-seaborn
-flask
-flask-cors
-joblib
 tensorflow

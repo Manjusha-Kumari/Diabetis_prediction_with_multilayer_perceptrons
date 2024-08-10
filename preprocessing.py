@@ -1,37 +1,29 @@
-import pandas as pd
 import numpy as np
-from sklearn import preprocessing
+import pandas as pd
+from sklearn.preprocessing import StandardScaler
 from sklearn.model_selection import train_test_split
 
-def load_and_preprocess_data(file_path):
-    df = pd.read_csv(file_path)
+def load_and_preprocess_data(filepath):
+    # Load the dataset
+    df = pd.read_csv(filepath)
     
-    # Replace 0 values with NaN
-    df['Glucose'] = df['Glucose'].replace(0, np.nan)
-    df['BloodPressure'] = df['BloodPressure'].replace(0, np.nan)
-    df['SkinThickness'] = df['SkinThickness'].replace(0, np.nan)
-    df['Insulin'] = df['Insulin'].replace(0, np.nan)
-    df['BMI'] = df['BMI'].replace(0, np.nan)
+    # Separate features and target
+    X = df.drop(columns=['Outcome'])
+    y = df['Outcome']
     
-    # Fill NaN values with column mean
-    df['Glucose'] = df['Glucose'].fillna(df['Glucose'].mean())
-    df['BloodPressure'] = df['BloodPressure'].fillna(df['BloodPressure'].mean())
-    df['SkinThickness'] = df['SkinThickness'].fillna(df['SkinThickness'].mean())
-    df['Insulin'] = df['Insulin'].fillna(df['Insulin'].mean())
-    df['BMI'] = df['BMI'].fillna(df['BMI'].mean())
+    # Handle missing values
+    X['Glucose'] = X['Glucose'].replace(0, np.nan).fillna(X['Glucose'].mean())
+    X['BloodPressure'] = X['BloodPressure'].replace(0, np.nan).fillna(X['BloodPressure'].mean())
+    X['SkinThickness'] = X['SkinThickness'].replace(0, np.nan).fillna(X['SkinThickness'].mean())
+    X['Insulin'] = X['Insulin'].replace(0, np.nan).fillna(X['Insulin'].mean())
+    X['BMI'] = X['BMI'].replace(0, np.nan).fillna(X['BMI'].mean())
     
     # Standardize the dataset
-    df_scaled = preprocessing.scale(df)
-    df_scaled = pd.DataFrame(df_scaled, columns=df.columns)
-    df_scaled['Outcome'] = df['Outcome']
-    df = df_scaled
+    scaler = StandardScaler()
+    X_scaled = scaler.fit_transform(X)
     
-    # Split the data into X and y
-    X = df.loc[:, df.columns != 'Outcome']
-    y = df.loc[:, 'Outcome']
+    # Split the data into training, validation, and test sets
+    X_train, X_temp, y_train, y_temp = train_test_split(X_scaled, y, test_size=0.2, random_state=42)
+    X_val, X_test, y_val, y_test = train_test_split(X_temp, y_temp, test_size=0.5, random_state=42)
     
-    # Split the data into training, validation, and testing sets
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
-    X_train, X_val, y_train, y_val = train_test_split(X_train, y_train, test_size=0.2)
-    
-    return X_train, X_val, X_test, y_train, y_val, y_test
+    return X_train, X_val, X_test, y_train, y_val, y_test, scaler
